@@ -17,9 +17,4 @@ with open("input.txt", "r") as file:
 for num in sequence:
     for nums, rows in enumerate(boards):
         if num in row:
-            row[row.index(num)] = "found"
-            if row == ["found"] * len(row):
-                board = rows[num // len(row) * len(row): num // len(row) * len(row) + len(row)]
-                print(board)
-                del rows[num // len(row) * len(row): num // len(row) * len(row) + len(row)]
-
+            pass
