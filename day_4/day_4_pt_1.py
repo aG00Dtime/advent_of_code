@@ -22,3 +22,4 @@ for num in sequence:
                 board = rows[num // len(row) * len(row): num // len(row) * len(row) + len(row)]
                 print(board)
                 del rows[num // len(row) * len(row): num // len(row) * len(row) + len(row)]
+
