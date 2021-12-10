@@ -14,7 +14,27 @@ with open("input.txt", "r") as file:
         boards.append(temp_list[:])
         temp_list.clear()
 
+winning_board = None
+last_num = None
+board_sum = 0
+
 for num in sequence:
-    for nums, rows in enumerate(boards):
-        if num in row:
-            pass
+    for board in boards[:]:
+        # rows
+        for value, row in enumerate(board):
+            if num in row:
+                row[row.index(num)] = "x"
+                last_num = num
+                if row == ["x"] * len(row):
+                    winning_board = board
+                    for i in range(5):
+                        print(board[i])
+
+                    for rows in winning_board:
+                        for nums in rows:
+                            if nums != "x":
+                                board_sum += nums
+
+                    print(f"Last number is {last_num} and the sum of the board is {board_sum}")
+                    print(f"Final score is {board_sum * last_num}")
+                    exit()
