@@ -19,7 +19,7 @@ last_num = None
 board_sum = 0
 
 for num in sequence:
-    for board in boards[:]:
+    for board in boards:
         # rows
         for value, row in enumerate(board):
             if num in row:
