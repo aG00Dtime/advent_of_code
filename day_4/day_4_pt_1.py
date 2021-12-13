@@ -1,5 +1,6 @@
-import copy
+
 import numpy as np
+
 # temp lists
 boards = []
 temp_list = []
@@ -17,60 +18,59 @@ with open("input.txt", "r") as file:
         boards.append(temp_list.copy())
 
         temp_list.clear()
-# copy board list
-board_copy = copy.deepcopy(boards)
 
+board_np_array = np.array(boards)
+columns = []
 
-def calc_sum(array, num):
-    # print final score of board
-    # smaller number wins
-    b_sum = 0
-    for row_ in array:
-        for val in row_:
-            if val != "x":
-                b_sum += val
-    print(f"Total score is {b_sum * num}")
-
-
-board_1 = None
-last_num = None
-# should make this a function but w.e
-# check rows to see if numbers match sequence
-for num in sequence:
-    for board in boards:
-        # rows
-        for value, row in enumerate(board):
-            if num in row:
-                row[row.index(num)] = "x"
-                last_num = num
-            if not board_1:
-                if row == ["x"] * len(row):
-                    board_1 = board
-                    # print(board)
-                    calc_sum(board_1, last_num)
-
-# make numpy array to turn columns into rows
-boards_deepcopy = np.array(board_copy)
-board_cols = []
-board_2 = None
 # turn columns into rows
-for board in boards_deepcopy:
+for board in board_np_array:
     for i in range(5):
         temp_list.append([row[i] for row in board])
-    board_cols.append(temp_list[:])
+    columns.append(temp_list[:])
     temp_list.clear()
 
+
+# def calc score
+def score(array, number):
+    board_sum = 0
+    for rows in array:
+        for val in rows:
+            if val != "x":
+                board_sum += int(val)
+    print(f"Score: {board_sum * number} ,The sum of the board was {board_sum} and the last number was {number}.")
+
+
+# win bool
+won = False
+# winning board
+winning_board = list()
+# the last number that was pulled
+last_number = None
+# check sequence
 for num in sequence:
-    for board in board_cols:
-        # rows
-        for value, row in enumerate(board):
+    # check rows
+    for index, board in enumerate(boards):
+        for row in board:
             if num in row:
+                # mark number if found
                 row[row.index(num)] = "x"
-                last_num = num
-            if not board_2:
-                if row == ["x"] * len(row):
-                    board_2 = board
-                    # print(board)
-                    calc_sum(board_2, last_num)
-# Total score is 35056
-# Total score is 4662
+            if row == ["x"] * 5:
+                won = True
+                winning_board = board
+                last_number = num
+                break
+    # check columns
+    for index, board_col in enumerate(columns):
+        for row in board_col:
+            if num in row:
+                # mark number if found
+                row[row.index(num)] = "x"
+            if row == ["x"] * 5:
+                won = True
+                winning_board = board_col
+                last_number = num
+                break
+    # break out if won
+    if won:
+        score(winning_board, last_number)
+        break
