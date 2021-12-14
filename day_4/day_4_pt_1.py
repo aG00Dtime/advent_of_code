@@ -1,4 +1,3 @@
-
 import numpy as np
 
 # temp lists
@@ -19,6 +18,7 @@ with open("input.txt", "r") as file:
 
         temp_list.clear()
 
+# copy
 board_np_array = np.array(boards)
 columns = []
 
