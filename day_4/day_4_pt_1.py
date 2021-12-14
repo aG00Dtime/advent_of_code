@@ -1,5 +1,3 @@
-import numpy as np
-
 # temp lists
 boards = []
 temp_list = []
@@ -18,12 +16,10 @@ with open("input.txt", "r") as file:
 
         temp_list.clear()
 
-# copy
-board_np_array = np.array(boards)
+# cols
 columns = []
-
 # turn columns into rows
-for board in board_np_array:
+for board in boards:
     for i in range(5):
         temp_list.append([row[i] for row in board])
     columns.append(temp_list[:])

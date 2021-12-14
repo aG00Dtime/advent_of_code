@@ -1,5 +1,3 @@
-import numpy as np
-
 # temp lists
 boards = []
 temp_list = []
@@ -18,12 +16,10 @@ with open("input.txt", "r") as file:
 
         temp_list.clear()
 
-# copy
-board_np_array = np.array(boards)
+# cols
 columns = []
-
 # turn columns into rows
-for board in board_np_array:
+for board in boards:
     for i in range(5):
         temp_list.append([row[i] for row in board])
     columns.append(temp_list[:])
@@ -63,11 +59,11 @@ for num in sequence:
     # check columns
     for index, board_col in enumerate(columns):
         if not winning_boards[index]:
-            for row in board_col:
-                if num in row:
+            for col in board_col:
+                if num in col:
                     # mark number if found
-                    row[row.index(num)] = "x"
-                if row == ["x"] * 5:
+                    col[col.index(num)] = "x"
+                if col == ["x"] * 5:
                     winning_boards[index] = True
                     last_to_win = board_col
                     last_number = num
